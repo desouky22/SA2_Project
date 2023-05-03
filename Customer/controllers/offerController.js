@@ -50,7 +50,10 @@ const updateOffer = asyncHandler(async (req, res) => {
     amount: req.body.amount,
   });
 
-  res.status(200).json(updatedOffer);
+  res.status(200).json({
+    offer: req.body.offer,
+    amount: req.body.amount,
+  });
 });
 
 const deleteOffer = asyncHandler(async (req, res) => {
