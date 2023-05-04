@@ -45,15 +45,18 @@ const updateOffer = asyncHandler(async (req, res) => {
     throw new Error("There is no offer with id = " + req.params.id);
   }
 
-  const updatedOffer = await Offer.findByIdAndUpdate(req.params.id, {
-    offer: req.body.offer,
-    amount: req.body.amount,
-  });
+  const offerBody = req.body.offer,
+    amountBody = req.body.offer;
 
-  res.status(200).json({
-    offer: req.body.offer,
-    amount: req.body.amount,
-  });
+  const updatedOffer = await Offer.findByIdAndUpdate(
+    req.params.id,
+    {
+      offer: offerBody,
+      amount: amountBody,
+    },
+    { new: true }
+  );
+  res.status(200).json({ message: updatedOffer });
 });
 
 const deleteOffer = asyncHandler(async (req, res) => {
