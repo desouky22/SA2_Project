@@ -17,7 +17,7 @@ const createOffer = asyncHandler(async (req, res) => {
 
   if (isNaN(Number(req.body.amount))) {
     res.status(400);
-    throw new Erorr("Please provide a numerical value");
+    throw new Error("Please provide a numerical value");
   }
 
   const offer = await Offer.create({
