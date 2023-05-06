@@ -15,6 +15,11 @@ const createOffer = asyncHandler(async (req, res) => {
     throw new Error("Please add an offer and an amount to create an offer");
   }
 
+  if (isNaN(Number(req.body.amount))) {
+    res.status(400);
+    throw new Erorr("Please provide a numerical value");
+  }
+
   const offer = await Offer.create({
     offer: req.body.offer,
     amount: req.body.amount,
@@ -45,8 +50,13 @@ const updateOffer = asyncHandler(async (req, res) => {
     throw new Error("There is no offer with id = " + req.params.id);
   }
 
+  if (!req.body.offer || !req.body.amount) {
+    res.status(400);
+    throw new Error("Please add an offer and an amount to update an offer");
+  }
+
   const offerBody = req.body.offer,
-    amountBody = req.body.offer;
+    amountBody = req.body.amount;
 
   const updatedOffer = await Offer.findByIdAndUpdate(
     req.params.id,
